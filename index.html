@@ -1,62 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Shop - Premium Tech Store</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Shop - Premium Tech Store</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">NEXUS</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#featured">Featured</a></li>
-            </ul>
-            <div class="cart-icon" onclick="toggleCart()">
-                🛒
-                <span class="cart-count" id="cartCount">0</span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-glass">
-            <h1>Welcome to Nexus</h1>
-            <p>Where Innovation Meets Elegance</p>
-            <button class="cta-button" onclick="scrollToProducts()">Discover Excellence</button>
-        </div>
-    </section>
-
-    <!-- Featured Products -->
-    <section class="featured" id="products">
-        <h2 class="section-title">Premium Collection</h2>
-        <div class="product-grid" id="productGrid"></div>
-    </section>
-
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2>Your Cart</h2>
-                <div class="close-cart" onclick="toggleCart()">×</div>
-            </div>
-            <div class="cart-items" id="cartItems"></div>
-            <div class="cart-total">
-                <div class="total-label">Total:</div>
-                <div class="total-price" id="totalPrice">$0</div>
-            </div>
-            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
-        </div>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">NEXUS</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#why">Why Nexus</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-right">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search..." aria-label="Search products">
+        <button class="dark-toggle" aria-label="Toggle dark mode" onclick="toggleDark()">🌙</button>
+        <button class="user-icon" aria-label="User menu" onclick="toggleUser()" id="userIcon">👤</button>
+        <button class="cart-icon" aria-label="Open cart" onclick="toggleCart()">🛒<span id="cartCount">0</span></button>
+      </div>
     </div>
+  </nav>
 
-    <script src="script.js"></script>
+  <div class="user-dropdown" id="userDrop">
+    <div id="loggedOut">
+      <button onclick="openAuth('login')">Login</button>
+      <button onclick="openAuth('register')">Register</button>
+    </div>
+    <div id="loggedIn" style="display:none;">
+      <div id="greeting"></div>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <section class="hero" id="home">
+    <div class="hero-glass">
+      <h1>Welcome to Nexus</h1>
+      <p>Where Innovation Meets Elegance</p>
+      <div class="hero-actions">
+        <button onclick="scrollToSection('#products')">Discover Excellence</button>
+        <button class="ghost" onclick="scrollToSection('#why')">Why Nexus</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured" id="products">
+    <h2>Premium Collection</h2>
+    <div id="productGrid"></div>
+  </section>
+
+  <section class="why" id="why">
+    <div class="why-card">
+      <h3>Curated Flagship Tech</h3>
+      <p>Only devices that pass our internal benchmark for audio, battery, and durability.</p>
+    </div>
+    <div class="why-card">
+      <h3>Fast & Safe Shipping</h3>
+      <p>Insured deliveries with live tracking and anti-impact packaging.</p>
+    </div>
+    <div class="why-card">
+      <h3>Lifetime Support</h3>
+      <p>24/7 human support, extended warranties, and 48h express replacements.</p>
+    </div>
+  </section>
+
+  <section class="highlights" id="highlights">
+    <div class="highlight-card">
+      <span class="badge">Bestseller</span>
+      <h3>Wireless ANC Pro</h3>
+      <p>Hybrid noise canceling, 45h battery, and fast USB‑C charging.</p>
+    </div>
+    <div class="highlight-card">
+      <span class="badge">New</span>
+      <h3>Ultrabook Carbon X</h3>
+      <p>1.1kg carbon fiber chassis with a 14" 3K display.</p>
+    </div>
+    <div class="highlight-card">
+      <span class="badge">-15%</span>
+      <h3>Smart Home Pack</h3>
+      <p>Hub + 3 sensors + 4K camera with guided setup included.</p>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <h2>FAQs</h2>
+    <div class="faq-item">
+      <h4>Do you ship worldwide?</h4>
+      <p>Yes. All orders include tracking and insurance.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Warranty?</h4>
+      <p>Minimum 12 months; optional 24-month extension at checkout.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Returns?</h4>
+      <p>30-day hassle-free returns. We handle pickup.</p>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="reviews-header">
+      <h2>What customers say</h2>
+      <div class="rating-summary">
+        <div id="avgRating" class="avg-rating">4.8</div>
+        <div id="avgStars" class="stars" aria-label="Average rating"></div>
+        <div id="reviewCount" class="count">124 reviews</div>
+      </div>
+    </div>
+    <div id="reviewsList" class="reviews-list"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="logo">NEXUS</div>
+      <p>Premium tech, curated for creators and power users.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#products">Products</a>
+      <a href="#why">Why Nexus</a>
+      <a href="#faq">FAQ</a>
+      <a href="#home">Back to top</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="Twitter">Twitter</a>
+      <a href="#" aria-label="YouTube">YouTube</a>
+    </div>
+  </footer>
+
+  <div class="modal" id="cartModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2>Your Cart <span onclick="toggleCart()">×</span></h2>
+      <div id="cartItems"></div>
+      <div class="total">Total: $<span id="total">0</span></div>
+      <button onclick="startCheckout()">Checkout</button>
+    </div>
+  </div>
+
+  <div class="modal" id="authModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="authTitle">Login <span onclick="closeAuth()">×</span></h2>
+      <div id="authForm"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2>Checkout <span onclick="closeCheckout()">×</span></h2>
+      <div id="checkoutForm"></div>
+    </div>
+  </div>
+
+  <!-- Product Details Modal -->
+  <div class="modal" id="productModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="productTitle">Product <span onclick="closeProduct()">×</span></h2>
+      <div id="productDetails"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
