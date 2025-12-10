@@ -3,7 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Shop - Premium Tech Store</title>
+  <title>Nexus Shop - Premium Tech Store | Where Innovation Meets Elegance</title>
+  <meta name="description" content="Discover premium tech products at Nexus Shop. Curated selection of wireless headphones, smart watches, flagship phones, speakers, and more. Fast shipping, lifetime support.">
+  <meta name="keywords" content="premium tech, wireless headphones, smart watch, flagship phone, speakers, earbuds, tablet, action camera, gaming mouse, tech store">
+  <meta name="author" content="Nexus Shop">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexusshop.com/">
+  <meta property="og:title" content="Nexus Shop - Premium Tech Store">
+  <meta property="og:description" content="Where Innovation Meets Elegance. Discover curated premium tech products with fast shipping and lifetime support.">
+  <meta property="og:image" content="https://nexusshop.com/og-image.jpg">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://nexusshop.com/">
+  <meta property="twitter:title" content="Nexus Shop - Premium Tech Store">
+  <meta property="twitter:description" content="Where Innovation Meets Elegance. Discover curated premium tech products.">
+  <meta property="twitter:image" content="https://nexusshop.com/og-image.jpg">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⭐%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -71,7 +91,7 @@
   </div>
 
   <section class="hero" id="home">
-    <div class="hero-glass">
+    <div class="hero-glass reveal fade-in">
       <h1>Welcome to Nexus</h1>
       <p>Where Innovation Meets Elegance</p>
       <div class="hero-actions">
@@ -82,7 +102,7 @@
   </section>
 
   <section class="featured" id="products">
-    <h2>Premium Collection</h2>
+    <h2 class="reveal fade-in">Premium Collection</h2>
     <div class="filter-panel" id="filterPanel">
       <div class="filter-group">
         <label for="filterCategory">Category</label>
@@ -115,36 +135,36 @@
       </div>
       <button class="filter-clear" id="clearFilters">Clear</button>
     </div>
-    <div id="productGrid"></div>
+    <div id="productGrid" class="reveal-stagger"></div>
   </section>
 
   <section class="why" id="why">
-    <div class="why-card">
+    <div class="why-card reveal slide-left">
       <h3>Curated Flagship Tech</h3>
       <p>Only devices that pass our internal benchmark for audio, battery, and durability.</p>
     </div>
-    <div class="why-card">
+    <div class="why-card reveal fade-in">
       <h3>Fast & Safe Shipping</h3>
       <p>Insured deliveries with live tracking and anti-impact packaging.</p>
     </div>
-    <div class="why-card">
+    <div class="why-card reveal slide-right">
       <h3>Lifetime Support</h3>
       <p>24/7 human support, extended warranties, and 48h express replacements.</p>
     </div>
   </section>
 
   <section class="highlights" id="highlights">
-    <div class="highlight-card">
+    <div class="highlight-card reveal fade-in">
       <span class="badge">Bestseller</span>
       <h3>Wireless ANC Pro</h3>
       <p>Hybrid noise canceling, 45h battery, and fast USB‑C charging.</p>
     </div>
-    <div class="highlight-card">
+    <div class="highlight-card reveal fade-in">
       <span class="badge">New</span>
       <h3>Ultrabook Carbon X</h3>
       <p>1.1kg carbon fiber chassis with a 14" 3K display.</p>
     </div>
-    <div class="highlight-card">
+    <div class="highlight-card reveal fade-in">
       <span class="badge">-15%</span>
       <h3>Smart Home Pack</h3>
       <p>Hub + 3 sensors + 4K camera with guided setup included.</p>
@@ -152,57 +172,72 @@
   </section>
 
   <section class="faq" id="faq">
-    <h2>FAQs</h2>
-    <div class="faq-item">
+    <h2 class="reveal fade-in">FAQs</h2>
+    <div class="faq-item reveal fade-in">
       <h4>Do you ship worldwide?</h4>
       <p>Yes. All orders include tracking and insurance.</p>
     </div>
-    <div class="faq-item">
+    <div class="faq-item reveal fade-in">
       <h4>Warranty?</h4>
       <p>Minimum 12 months; optional 24-month extension at checkout.</p>
     </div>
-    <div class="faq-item">
+    <div class="faq-item reveal fade-in">
       <h4>Returns?</h4>
       <p>30-day hassle-free returns. We handle pickup.</p>
     </div>
   </section>
 
   <section class="reviews" id="reviews">
-  <div class="reviews-header">
-    <h2>What customers say</h2>
-    <div class="rating-summary">
-      <div id="avgRating" class="avg-rating">4.8</div>
-      <div id="avgStars" class="stars" aria-label="Average rating"></div>
-      <div id="reviewCount" class="count">124 reviews</div>
+    <div class="reviews-header reveal fade-in">
+      <h2>What customers say</h2>
+      <div class="rating-summary">
+        <div id="avgRating" class="avg-rating">4.8</div>
+        <div id="avgStars" class="stars" aria-label="Average rating"></div>
+        <div id="reviewCount" class="count">124 reviews</div>
+      </div>
     </div>
-  </div>
-  <div id="reviewsList" class="reviews-list"></div>
-</section>
+    <div id="reviewsList" class="reviews-list"></div>
+  </section>
 
   <footer class="footer">
-    <div class="footer-brand">
+    <div class="footer-brand reveal fade-in">
       <div class="logo">NEXUS</div>
       <p>Premium tech, curated for creators and power users.</p>
+      <div class="newsletter-signup">
+        <h4>Stay Updated</h4>
+        <form onsubmit="subscribeNewsletter(event); return false;">
+          <input type="email" id="newsletterEmail" placeholder="Your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
     </div>
     <div class="footer-links">
+      <h4>Shop</h4>
       <a href="#products">Products</a>
       <a href="#why">Why Nexus</a>
       <a href="#faq">FAQ</a>
       <a href="#home">Back to top</a>
     </div>
+    <div class="footer-company">
+      <h4>Company</h4>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+      <a href="#terms">Terms of Service</a>
+      <a href="#privacy">Privacy Policy</a>
+    </div>
     <div class="footer-social">
+      <h4>Follow Us</h4>
       <a href="#" aria-label="Instagram">Instagram</a>
       <a href="#" aria-label="Twitter">Twitter</a>
       <a href="#" aria-label="YouTube">YouTube</a>
     </div>
-    
   </footer>
 
   <div class="modal" id="favoritesModal" role="dialog" aria-modal="true">
     <div class="modal-content">
       <h2>Your Favorites <span onclick="toggleFavorites()">×</span></h2>
       <div id="favoritesItems"></div>
-      <div id="favoritesEmpty" style="text-align:center; padding:40px; opacity:0.7; display:none;">Your favorites list is empty.</div>
+      <div id="favoritesEmpty" style="display:none;"></div>
     </div>
   </div>
 
