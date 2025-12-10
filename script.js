@@ -1,47 +1,47 @@
 const products = [
-  {id:1,name:'Premium Wireless Headphones',price:349,category:'Audio',image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',desc:'LDAC, hybrid ANC, 45h battery life.', specs:[
+  {id:1,name:'Premium Wireless Headphones',price:349,originalPrice:449,discount:22,badge:'Bestseller',stock:'in',category:'Audio',image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',desc:'LDAC, hybrid ANC, 45h battery life.', specs:[
     'Hybrid ANC (up to 40dB)',
     '45h battery, USB-C fast charge',
     'LDAC / AAC / SBC codecs',
     'Memory foam earcups'
   ]},
-  {id:2,name:'Elite Smart Watch',price:599,category:'Watch',image:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop',desc:'ECG, SpO2, 10-day battery, AMOLED.', specs:[
+  {id:2,name:'Elite Smart Watch',price:599,originalPrice:null,discount:0,badge:'New',stock:'in',category:'Watch',image:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop',desc:'ECG, SpO2, 10-day battery, AMOLED.', specs:[
     'ECG & SpO2 sensors',
     '1.8" AMOLED with AOD',
     '10-day battery, 5ATM',
     'GPS + NFC payments'
   ]},
-  {id:3,name:'Flagship Pro Phone',price:1299,category:'Phone',image:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&h=600&fit=crop',desc:'Snapdragon 8 Gen, 120Hz LTPO, 1TB.', specs:[
+  {id:3,name:'Flagship Pro Phone',price:1299,originalPrice:null,discount:0,badge:null,stock:'low',category:'Phone',image:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&h=600&fit=crop',desc:'Snapdragon 8 Gen, 120Hz LTPO, 1TB.', specs:[
     'Snapdragon 8 Gen CPU',
     '120Hz LTPO AMOLED',
     '1TB storage, 16GB RAM',
     '5000mAh + 65W fast charge'
   ]},
-  {id:4,name:'Premium Speakers',price:449,category:'Audio',image:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&h=600&fit=crop',desc:'Room-filling sound, Wi-Fi multiroom.', specs:[
+  {id:4,name:'Premium Speakers',price:449,originalPrice:599,discount:25,badge:'Sale',stock:'in',category:'Audio',image:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&h=600&fit=crop',desc:'Room-filling sound, Wi-Fi multiroom.', specs:[
     'Wi-Fi multiroom ready',
     'Hi-Res + Bluetooth',
     'Dual sub passive radiators',
     'Voice assistant ready'
   ]},
-  {id:5,name:'Wireless Earbuds',price:249,category:'Audio',image:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&h=600&fit=crop',desc:'Adaptive ANC, wireless charging.', specs:[
+  {id:5,name:'Wireless Earbuds',price:249,originalPrice:null,discount:0,badge:null,stock:'in',category:'Audio',image:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&h=600&fit=crop',desc:'Adaptive ANC, wireless charging.', specs:[
     'Adaptive ANC',
     'Qi wireless charging',
     'IPX4 sweat resistant',
     'Spatial audio ready'
   ]},
-  {id:6,name:'Smart Tablet',price:799,category:'Laptop',image:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&h=600&fit=crop',desc:'12.9" mini-LED, pen + keyboard.', specs:[
+  {id:6,name:'Smart Tablet',price:799,originalPrice:null,discount:0,badge:null,stock:'in',category:'Laptop',image:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&h=600&fit=crop',desc:'12.9" mini-LED, pen + keyboard.', specs:[
     '12.9" mini-LED display',
     'Pen + keyboard support',
     'Wi-Fi 6E + 5G',
     'All-day battery'
   ]},
-  {id:7,name:'4K Action Cam',price:549,category:'Camera',image:'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&h=600&fit=crop',desc:'5.3K60, horizon lock, 10-bit color.', specs:[
+  {id:7,name:'4K Action Cam',price:549,originalPrice:null,discount:0,badge:null,stock:'in',category:'Camera',image:'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&h=600&fit=crop',desc:'5.3K60, horizon lock, 10-bit color.', specs:[
     '5.3K60 / 4K120',
     'Horizon lock + HyperSmooth',
     '10-bit color depth',
     'Waterproof 10m'
   ]},
-  {id:8,name:'Gaming Mouse Pro',price:159,category:'Accessories',image:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&fit=crop',desc:'58g, 8K polling, optical switches.', specs:[
+  {id:8,name:'Gaming Mouse Pro',price:159,originalPrice:199,discount:20,badge:'Sale',stock:'in',category:'Accessories',image:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&fit=crop',desc:'58g, 8K polling, optical switches.', specs:[
     '58g ultra-light',
     '8000Hz polling rate',
     'Optical switches',
@@ -94,30 +94,20 @@ function loadState() {
 }
 
 function render(list = products) {
+  const grid = document.getElementById('productGrid');
   if (!list.length) {
-    document.getElementById('productGrid').innerHTML = `<div style="text-align:center; grid-column:1/-1; opacity:0.8;">No products found.</div>`;
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">🔍</div><h3>No products found</h3><p>Try adjusting your filters or search terms</p><button onclick="document.getElementById('clearFilters').click();" class="empty-action-btn">Clear Filters</button></div>`;
     return;
   }
-  document.getElementById('productGrid').innerHTML = list.map((p, idx) => {
+  grid.innerHTML = list.map((p, idx) => {
     const isFav = favorites.some(f => f.id === p.id);
-    return `
-    <div class="product-card" style="animation-delay:${idx * 0.05}s">
-      <button class="favorite-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id})" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '❤️' : '🤍'}</button>
-      <div class="product-image">
-        <img src="${p.image}" alt="${p.name}" loading="lazy">
-      </div>
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <div class="footer">
-        <div class="price">$${p.price}</div>
-        <div class="btn-group">
-          <button onclick="openProduct(${p.id})">Details</button>
-          <button onclick="addCart(${p.id}, event); event.stopPropagation();">Add to Cart</button>
-        </div>
-      </div>
-    </div>
-  `;
+    const badgeHtml = p.badge ? `<span class="product-badge ${p.badge.toLowerCase()}">${p.badge}</span>` : '';
+    const stockHtml = p.stock === 'low' ? `<span class="stock-indicator low">Low Stock</span>` : p.stock === 'out' ? `<span class="stock-indicator out">Out of Stock</span>` : `<span class="stock-indicator in">In Stock</span>`;
+    const priceHtml = p.originalPrice ? `<div class="price-container"><span class="original-price">$${p.originalPrice}</span><span class="price">$${p.price}</span><span class="discount-badge">-${p.discount}%</span></div>` : `<div class="price">$${p.price}</div>`;
+    const disabledAttr = p.stock === 'out' ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : '';
+    return `<div class="product-card reveal fade-in" style="animation-delay:${idx * 0.05}s"><button class="favorite-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id})" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '❤️' : '🤍'}</button>${badgeHtml}<div class="product-image"><img src="${p.image}" alt="${p.name}" loading="lazy"></div><h3>${p.name}</h3><p>${p.desc}</p>${stockHtml}<div class="footer">${priceHtml}<div class="btn-group"><button onclick="openProduct(${p.id})">Details</button><button onclick="addCart(${p.id}, event); event.stopPropagation();" ${disabledAttr}>${p.stock === 'out' ? 'Out of Stock' : 'Add to Cart'}</button></div></div></div>`;
   }).join('');
+  setTimeout(() => initScrollReveal(), 50);
 }
 
 function applyFilters() {
@@ -207,20 +197,33 @@ function updateCart() {
   const mobileCartCount = document.getElementById('mobileCartCount');
   if (mobileCartCount) mobileCartCount.textContent = count;
   document.getElementById('total').textContent = total.toFixed(2);
-  document.getElementById('cartItems').innerHTML = cart.length ? cart.map((i, idx) => `
-    <div class="cart-item" style="animation-delay:${idx * 0.1}s">
-      <div class="cart-item-info">
-        <img src="${i.image || 'https://via.placeholder.com/60'}" alt="${i.name}" class="cart-item-image">
-        <div>${i.name}</div>
+  const cartItemsEl = document.getElementById('cartItems');
+  if (cart.length) {
+    cartItemsEl.innerHTML = cart.map((i, idx) => `
+      <div class="cart-item" style="animation-delay:${idx * 0.1}s">
+        <div class="cart-item-info">
+          <img src="${i.image || 'https://via.placeholder.com/60'}" alt="${i.name}" class="cart-item-image">
+          <div>${i.name}</div>
+        </div>
+        <div class="cart-actions">
+          <button onclick="changeQty(${i.id}, -1)">-</button>
+          <span>x${i.qty}</span>
+          <button onclick="changeQty(${i.id}, 1)">+</button>
+          <span class="line-total">$${(i.price * i.qty).toFixed(2)}</span>
+        </div>
       </div>
-      <div class="cart-actions">
-        <button onclick="changeQty(${i.id}, -1)">-</button>
-        <span>x${i.qty}</span>
-        <button onclick="changeQty(${i.id}, 1)">+</button>
-        <span class="line-total">$${(i.price * i.qty).toFixed(2)}</span>
+    `).join('');
+    cartItemsEl.innerHTML += '<div id="cartEmpty" style="display:none;"></div>';
+  } else {
+    cartItemsEl.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Add some products to get started</p>
+        <button onclick="toggleCart(); scrollToSection('#products');" class="empty-action-btn">Browse Products</button>
       </div>
-    </div>
-  `).join('') : 'Empty cart';
+    `;
+  }
   saveState();
 }
 
@@ -249,8 +252,7 @@ function toggleFavorite(id) {
     }
   }
   updateFavorites();
-  const filtered = applyFilters();
-  render(filtered);
+  render();
   saveState();
 }
 function updateFavorites() {
@@ -262,6 +264,14 @@ function updateFavorites() {
   const emptyEl = document.getElementById('favoritesEmpty');
   if (!favorites.length) {
     itemsEl.innerHTML = '';
+    emptyEl.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">❤️</div>
+        <h3>No favorites yet</h3>
+        <p>Start adding products you love to your favorites</p>
+        <button onclick="toggleFavorites(); scrollToSection('#products');" class="empty-action-btn">Browse Products</button>
+      </div>
+    `;
     emptyEl.style.display = 'block';
   } else {
     emptyEl.style.display = 'none';
@@ -514,19 +524,55 @@ function openProduct(id) {
   const modal = document.getElementById('productModal');
   document.getElementById('productTitle').innerHTML = `${p.name} <span onclick="closeProduct()">×</span>`;
   const specsList = p.specs?.length ? `<ul class="specs">${p.specs.map(s=>`<li>${s}</li>`).join('')}</ul>` : '<p>No specs available.</p>';
+  const badgeHtml = p.badge ? `<span class="product-badge ${p.badge.toLowerCase()}">${p.badge}</span>` : '';
+  const stockHtml = p.stock === 'low' ? `<span class="stock-indicator low">Low Stock</span>` : p.stock === 'out' ? `<span class="stock-indicator out">Out of Stock</span>` : `<span class="stock-indicator in">In Stock</span>`;
+  const priceHtml = p.originalPrice ? `<div class="price-container" style="margin-bottom:16px;"><span class="original-price">$${p.originalPrice}</span><span class="price" style="font-size:2rem;">$${p.price}</span><span class="discount-badge">-${p.discount}%</span></div>` : `<div class="price" style="font-size:2rem; margin-bottom:16px;">$${p.price}</div>`;
+  
+  // Related products (same category, different product)
+  const related = products.filter(prod => prod.category === p.category && prod.id !== p.id).slice(0, 3);
+  const relatedHtml = related.length ? `
+    <div class="related-products">
+      <h4 style="margin:32px 0 16px; font-family:'Cormorant Garamond',serif;">Related Products</h4>
+      <div class="related-grid">
+        ${related.map(rp => `
+          <div class="related-item" onclick="openProduct(${rp.id});">
+            <img src="${rp.image}" alt="${rp.name}">
+            <div>
+              <h5>${rp.name}</h5>
+              <span class="price">$${rp.price}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+  
   document.getElementById('productDetails').innerHTML = `
     <div class="product-modal-image">
       <img src="${p.image}" alt="${p.name}">
+      ${badgeHtml}
     </div>
+    ${priceHtml}
+    ${stockHtml}
     <p style="margin-bottom:12px; opacity:0.9;">${p.desc}</p>
     ${specsList}
-    <button onclick="addCart(${p.id}, event); closeProduct();">Add to Cart</button>
+    <button onclick="addCart(${p.id}, event); closeProduct();" ${p.stock === 'out' ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>${p.stock === 'out' ? 'Out of Stock' : 'Add to Cart'}</button>
+    ${relatedHtml}
   `;
   modal.classList.add('active');
 }
 
 function closeProduct() {
   document.getElementById('productModal').classList.remove('active');
+}
+
+function subscribeNewsletter(event) {
+  event.preventDefault();
+  const email = document.getElementById('newsletterEmail').value.trim();
+  if (!email) return toast('Please enter your email');
+  if (!/\S+@\S+\.\S+/.test(email)) return toast('Invalid email address');
+  toast('Thank you for subscribing!');
+  document.getElementById('newsletterEmail').value = '';
 }
 
 // Reviews
@@ -537,8 +583,8 @@ function starIcons(count) {
 function renderReviews() {
   const list = document.getElementById('reviewsList');
   if(!list) return;
-  list.innerHTML = reviews.map(r => `
-    <div class="review-card">
+  list.innerHTML = reviews.map((r, idx) => `
+    <div class="review-card reveal fade-in" style="transition-delay:${idx * 0.1}s">
       <div class="review-head">
         <div class="review-name">${r.name}</div>
         <div class="review-stars">${starIcons(r.rating)}</div>
@@ -551,6 +597,21 @@ function renderReviews() {
   document.getElementById('avgRating').textContent = avg.toFixed(1);
   document.getElementById('reviewCount').textContent = `${reviews.length} reviews`;
   document.getElementById('avgStars').innerHTML = starIcons(Math.round(avg)).split('').map(s=>`<span class="star">${s}</span>`).join('');
+  
+  // Re-initialize scroll reveal for new review cards
+  setTimeout(() => {
+    document.querySelectorAll('#reviewsList .reveal').forEach(el => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      observer.observe(el);
+    });
+  }, 100);
 }
 
 // Init
@@ -558,6 +619,7 @@ document.body.classList.add('loading');
 loadState();
 applyFilters();
 renderReviews();
+
 updateCart();
 updateFavorites();
 updateUser();
@@ -565,7 +627,6 @@ if(localStorage.getItem('nexus_theme') === 'dark') {
   document.body.classList.add('dark');
 }
 
-// Hide loader after 3 seconds
 setTimeout(() => {
   const loader = document.getElementById('loaderScreen');
   if (loader) {
@@ -607,3 +668,34 @@ if (clearBtn) clearBtn.addEventListener('click', () => {
   if (sortSelect) sortSelect.value = 'featured';
   applyFilters();
 });
+
+function initScrollReveal() {
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal:not(.visible), .reveal-stagger:not(.visible)').forEach(el => {
+    observer.observe(el);
+  });
+
+  const productGrid = document.getElementById('productGrid');
+  if (productGrid) {
+    const productGridObserver = new MutationObserver(() => {
+      document.querySelectorAll('#productGrid .product-card.reveal:not(.visible)').forEach(card => {
+        observer.observe(card);
+      });
+    });
+    productGridObserver.observe(productGrid, { childList: true, subtree: true });
+    document.querySelectorAll('#productGrid .product-card.reveal:not(.visible)').forEach(card => {
+      observer.observe(card);
+    });
+  }
+}
+
+setTimeout(() => initScrollReveal(), 100);
