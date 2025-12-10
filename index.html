@@ -7,26 +7,57 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="loader-screen" id="loaderScreen">
+    <div class="loader-content">
+      <div class="loader-logo">NEXUS</div>
+      <div class="loader-tagline">Where Innovation Meets Elegance</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
 
   <nav class="navbar">
     <div class="nav-container">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
       <div class="logo">NEXUS</div>
       <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#why">Why Nexus</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+        <li><a href="#products" onclick="closeMobileMenu()">Products</a></li>
+        <li><a href="#why" onclick="closeMobileMenu()">Why Nexus</a></li>
+        <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
       </ul>
       <div class="nav-right">
         <input type="text" id="searchInput" class="search-input" placeholder="Search..." aria-label="Search products">
         <button class="dark-toggle" aria-label="Toggle dark mode" onclick="toggleDark()">🌙</button>
+        <button class="favorites-icon" aria-label="Open favorites" onclick="toggleFavorites()">❤️<span id="favoritesCount">0</span></button>
         <button class="user-icon" aria-label="User menu" onclick="toggleUser()" id="userIcon">👤</button>
         <button class="cart-icon" aria-label="Open cart" onclick="toggleCart()">🛒<span id="cartCount">0</span></button>
       </div>
     </div>
   </nav>
+
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="mobile-sidebar-header">
+      <div class="logo">NEXUS</div>
+      <button class="mobile-close-btn" onclick="closeMobileMenu()" aria-label="Close menu">×</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+      <li><a href="#products" onclick="closeMobileMenu()">Products</a></li>
+      <li><a href="#why" onclick="closeMobileMenu()">Why Nexus</a></li>
+      <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
+    </ul>
+    <div class="mobile-sidebar-actions">
+      <input type="text" id="mobileSearchInput" class="search-input" placeholder="Search..." aria-label="Search products">
+      <button class="dark-toggle" aria-label="Toggle dark mode" onclick="toggleDark()">🌙</button>
+      <button class="favorites-icon" aria-label="Open favorites" onclick="toggleFavorites(); closeMobileMenu();">❤️<span id="mobileFavoritesCount">0</span></button>
+      <button class="user-icon" aria-label="User menu" onclick="toggleUser(); closeMobileMenu();" id="mobileUserIcon">👤</button>
+      <button class="cart-icon" aria-label="Open cart" onclick="toggleCart(); closeMobileMenu();">🛒<span id="mobileCartCount">0</span></button>
+    </div>
+  </div>
+  <div class="mobile-sidebar-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 
   <div class="user-dropdown" id="userDrop">
     <div id="loggedOut">
@@ -52,6 +83,38 @@
 
   <section class="featured" id="products">
     <h2>Premium Collection</h2>
+    <div class="filter-panel" id="filterPanel">
+      <div class="filter-group">
+        <label for="filterCategory">Category</label>
+        <select id="filterCategory">
+          <option value="">All</option>
+          <option value="Audio">Audio</option>
+          <option value="Watch">Watch</option>
+          <option value="Phone">Phone</option>
+          <option value="Laptop">Laptop</option>
+          <option value="Camera">Camera</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Price</label>
+        <div class="filter-inline">
+          <input id="priceMin" type="number" placeholder="Min" min="0">
+          <span class="filter-sep">-</span>
+          <input id="priceMax" type="number" placeholder="Max" min="0">
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="sortSelect">Sort</label>
+        <select id="sortSelect">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-asc">Name: A to Z</option>
+        </select>
+      </div>
+      <button class="filter-clear" id="clearFilters">Clear</button>
+    </div>
     <div id="productGrid"></div>
   </section>
 
@@ -134,6 +197,14 @@
     </div>
     
   </footer>
+
+  <div class="modal" id="favoritesModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2>Your Favorites <span onclick="toggleFavorites()">×</span></h2>
+      <div id="favoritesItems"></div>
+      <div id="favoritesEmpty" style="text-align:center; padding:40px; opacity:0.7; display:none;">Your favorites list is empty.</div>
+    </div>
+  </div>
 
   <div class="modal" id="cartModal" role="dialog" aria-modal="true">
     <div class="modal-content">
